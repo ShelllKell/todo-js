@@ -22,3 +22,11 @@ h1 {
 body {
     text-align: center;
 }
+
+ul {
+    padding: 0;
+}
+
+.flash {
+    border: green;
+}

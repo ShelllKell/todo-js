@@ -1,36 +1,40 @@
-// This is a manifest file that'll be compiled into application.js, which will include all the files
-// listed below.
-//
-// Any JavaScript/Coffee file within this directory, lib/assets/javascripts, vendor/assets/javascripts,
-// or vendor/assets/javascripts of plugins, if any, can be referenced here using a relative path.
-//
-// It's not advisable to add code directly here, but if you do, it'll appear at the bottom of the
-// compiled file.
-//
-// Read Sprockets README (https://github.com/sstephenson/sprockets#sprockets-directives) for details
-// about supported directives.
 //
 //= require jquery
 //= require jquery_ujs
 //= require_tree .
 
 $(document).ready(function () {
-  $('body').append("<h1>Todoly</h1>");
 
 
-  $('body').append('<form><input type="text" id ="item">');
+  $('body').append("<h1>Todo.ly</h1>");
 
+  $('body').append('<form><input type="text" id="item">');
 
   $('body').append("<button>Create Todo</button>");
 
 
-  $('button').click(function(e) {
-    e.preventDefault();
-    var item = $('#item').val();
+  $('button').one('click', function () {
     $('body').append('<h2>My Todos</h2>')
-    $('body').append("<ul>" + item + "</ul>")
-
   });
 
 
+  $('button').click(function (e) {
+    e.preventDefault();
+    var item = $('#item').val();
+    $('body').append("<ul>" + item + "</ul>")
+    $('input').val("")
+
+    setTimeout(function () {
+      $('body').append('<div class="flash">Todo created</div>')
+      $('div').fadeOut(5000, function () {
+        $('div').remove();
+      });
+
+    });
+
+  });
 });
+
+
+
+
