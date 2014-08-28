@@ -19,7 +19,20 @@ $('body').append("<button>Create Todo</button>");
   $('button').click(function (e) {
     e.preventDefault();
     var item = $('#item').val();
-    $('body').append('<ul>' + item + '</ul><span class="ex">X</span>')
+
+    $.ajax({
+      type: "POST",
+      url: "/todos",
+      data: { todo: {name: item}}
+
+    })
+
+    $('body').append('<ul>' + item + '</ul>')
+
+    $.get("/todos", function (data, status){
+        todos = data;
+      });
+
     $('input').val("")
 
 
