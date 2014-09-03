@@ -6,15 +6,18 @@
 $(document).ready(function () {
 
 
-$('body').append("<h1>Todo.ly</h1>");
-$('body').append('<form><input type="text" id="item">');
-$('body').append("<button>Create Todo</button>");
+
 
 
   $('button').one('click', function () {
-    $('body').append('<div class="line"></div><h2>Todo!</h2>')
+    $('body ul').prepend('<div class="line"></div><h2>Todo!</h2>')
   });
 
+  $.get("/todos", function (data, status){
+    $.each(data, function(index, todo){
+      $('body ul').append('<li>' + todo.name + '</li>')
+    });
+  });
 
   $('button').click(function (e) {
     e.preventDefault();
@@ -24,17 +27,14 @@ $('body').append("<button>Create Todo</button>");
       type: "POST",
       url: "/todos",
       data: { todo: {name: item}}
+    }).then(function(data){
+      $('body ul').append('<li>' + item + '</li>')
+    }).fail(function(){
+      window.alert('ohs noes!');
+    });
 
-    })
 
-    $('body').append('<ul>' + item + '</ul>')
-
-    $.get("/todos", function (data, status){
-        todos = data;
-      });
-
-    $('input').val("")
-
+    $('input[type="text"]').val("")
 
 
     setTimeout(function () {
